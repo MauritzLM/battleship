@@ -1,10 +1,11 @@
 // ship factory function
-const ship = (length) => {
-    // length = length;
+const ship = (name, length) => {
     let hits = 0;
     let beenSunk = false;
 
     const getHits = () => hits;
+    const getLength = () => length;
+    const getName = () => name;
 
     const hit = () => {
         hits++;
@@ -17,7 +18,7 @@ const ship = (length) => {
         return beenSunk;
     }
 
-    return { getHits, hit, isSunk }
+    return { getLength, getHits, getName, hit, isSunk }
 
 }
 
