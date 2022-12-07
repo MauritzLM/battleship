@@ -1,12 +1,14 @@
 // const ship = require("./ship");
 
+const ship = require("./ship");
+
 // gameboard factory
 
 const gameBoard = () => {
 
-    const playerPlacements = {}
+    const playerShips = {};
 
-    const missedShots = {};
+    const missedShots = [];
 
     // create grid
     const createBoard = () => {
@@ -23,25 +25,46 @@ const gameBoard = () => {
     }
 
     // placeship method
-    const placeShip = (ship, coords) => {
+    const placeShip = (ship, placement) => {
         // check that ship length == coords length
-        if (ship.getLength() !== coords.length) {
+        if (ship.getLength() !== placement.length) {
             return 'incorrect placement';
         }
 
-        else {
+        // check that coords are valid
 
-            playerPlacements[ship.getName()] = [...coords];
+        // add ship to player ships
+        const name = ship.getName();
+        playerShips[name] = [];
+        playerShips[name][0] = ship;
+        playerShips[name][1] = [...placement];
 
-        }
-
-        return playerPlacements;
-
+        return playerShips;
     }
 
     // receive attack method
+    const receiveAttack = (coords) => {
+        // search player placements for coords
+        for (const ship in playerShips) {
+            let placementsArr = playerShips[ship][1];
+            for (let i = 0; i < placementsArr.length; i++) {
+                // if (found) return true
+                if (coords.toString() === placementsArr[i].toString()) {
+                    // add hit to ship
+                    playerShips[ship][0].hit();
+                    // check if sunk
+                    playerShips[ship][0].isSunk();
+                    return true;
+                }
+            }
+        }
 
-    return { createBoard, placeShip };
+        // if (!found) add to missed shots and return false
+        missedShots.push(coords);
+        return false;
+    }
+
+    return { createBoard, placeShip, receiveAttack };
 }
 
 module.exports = gameBoard;

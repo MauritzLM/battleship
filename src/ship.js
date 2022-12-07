@@ -1,5 +1,6 @@
 // ship factory function
 const ship = (name, length) => {
+
     let hits = 0;
     let beenSunk = false;
 
