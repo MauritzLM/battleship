@@ -31,7 +31,7 @@ const gameBoard = () => {
             return 'incorrect placement';
         }
 
-        // check that coords are valid
+        // check that coords are valid(adjacent)
 
         // add ship to player ships
         const name = ship.getName();

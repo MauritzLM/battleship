@@ -12,14 +12,15 @@ test('test placing of ships at given coordinates', () => {
     const board = gameBoard();
 
     // place ship on gameboard
-    expect(board.placeShip(mockShip('destroyer', 3), [['A', 1], ['B', 1], ['C', 1]])).toEqual({
-        "destroyer": [{
-            "getLength": function () { return this.name },
-            "getName": function () { return this.length },
-        },
-        [['A', 1], ['B', 1], ['C', 1]]
-        ]
-    })
+    // expect(board.placeShip(mockShip('destroyer', 3), [['A', 1], ['B', 1], ['C', 1]])).toEqual({
+    //     "destroyer": [{
+    //         "getLength": function () { return this.name },
+    //         "getName": function () { return this.length },
+    //     },
+    //     [['A', 1], ['B', 1], ['C', 1]]
+    //     ]
+    // })
+    expect(board.placeShip(ship('destroyer', 3), [['A', 1], ['B', 1]])).toBe('incorrect placement')
 })
 
 test('test receive attack determines if hit', () => {
