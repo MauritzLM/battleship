@@ -31,7 +31,7 @@ const gameBoard = () => {
             return 'incorrect placement';
         }
 
-        // check that coords are valid(adjacent)
+        // check that coords are valid(adjacent and not occupied)
 
         // add ship to player ships
         const name = ship.getName();
@@ -52,8 +52,10 @@ const gameBoard = () => {
                 if (coords.toString() === placementsArr[i].toString()) {
                     // add hit to ship
                     playerShips[ship][0].hit();
-                    // check if sunk
+                    // check if ship is sunk
                     playerShips[ship][0].isSunk();
+                    // check if all ships have been sunk 
+
                     return true;
                 }
             }
@@ -64,7 +66,19 @@ const gameBoard = () => {
         return false;
     }
 
-    return { createBoard, placeShip, receiveAttack };
+    const allShipsSunk = () => {
+        for (const ship in playerShips) {
+            // get the sunk status of ship
+            let sunk = playerShips[ship][0].isSunk();
+            if (!sunk) {
+                return false;
+            }
+
+        }
+        return true
+    }
+
+    return { createBoard, placeShip, receiveAttack, missedShots, allShipsSunk };
 }
 
 module.exports = gameBoard;

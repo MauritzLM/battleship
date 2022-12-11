@@ -12,27 +12,41 @@ test('test placing of ships at given coordinates', () => {
     const board = gameBoard();
 
     // place ship on gameboard
-    // expect(board.placeShip(mockShip('destroyer', 3), [['A', 1], ['B', 1], ['C', 1]])).toEqual({
-    //     "destroyer": [{
-    //         "getLength": function () { return this.name },
-    //         "getName": function () { return this.length },
-    //     },
-    //     [['A', 1], ['B', 1], ['C', 1]]
-    //     ]
-    // })
-    expect(board.placeShip(ship('destroyer', 3), [['A', 1], ['B', 1]])).toBe('incorrect placement')
+    expect(board.placeShip(mockShip('destroyer', 3), [['A', 1], ['B', 1], ['C', 1]])).toEqual({
+        "destroyer": [{
+            "getLength": function () { return this.name },
+            "getName": function () { return this.length },
+        },
+        [['A', 1], ['B', 1], ['C', 1]]
+        ]
+    })
 })
 
+// receive attack
 test('test receive attack determines if hit', () => {
     const board = gameBoard();
     board.placeShip(ship('destroyer', 3), [['A', 1], ['B', 1], ['C', 1]]);
     expect(board.receiveAttack(['B', 1])).toBe(true);
 })
 
-// test('test tracking of missed attacks', () => {
+// missed attacks
+test('test tracking of missed attacks', () => {
+    const board = gameBoard();
+    board.placeShip(ship('destroyer', 3), [['A', 1], ['B', 1], ['C', 1]]);
+    board.receiveAttack(['B', 1]);
+    board.receiveAttack(['B', 2]);
+    expect(board.missedShots).toEqual([['B', 2]]);
+})
 
-// })
-
-// test('test if all ships have been sunk', () => {
-
-// })
+// have all ships been sunk
+test('test if all ships have been sunk', () => {
+    const board = gameBoard();
+    board.placeShip(ship('destroyer', 3), [['A', 1], ['B', 1], ['C', 1]]);
+    board.placeShip(ship('patrol', 2), [['F', 5], ['F', 6]]);
+    board.receiveAttack(['A', 1]);
+    board.receiveAttack(['B', 1]);
+    board.receiveAttack(['C', 1]);
+    board.receiveAttack(['F', 5]);
+    board.receiveAttack(['F', 6]);
+    expect(board.allShipsSunk()).toBe(true);
+})
