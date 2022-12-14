@@ -1,6 +1,4 @@
 
-const ship = require("./ship");
-
 // gameboard factory
 
 const gameBoard = () => {
@@ -28,6 +26,26 @@ const gameBoard = () => {
     }
 
     const board = createBoard();
+
+    // check if all ships have been sunk
+    const allShipsSunk = () => {
+        const numberOfShips = Object.keys(playerShips).length;
+        if (boardStatus.shipsSunk === numberOfShips) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // get missed shots
+    const missedShots = () => {
+        return boardStatus.missedShots;
+    }
+
+    // get hits
+    const hits = () => {
+        return boardStatus.hits;
+    }
 
     // placeship method
     const placeShip = (ship, placement) => {
@@ -65,7 +83,8 @@ const gameBoard = () => {
                     if (playerShips[ship][0].isSunk()) {
                         boardStatus.shipsSunk++;
                     };
-                    // check if all ships have been sunk 
+
+                    // check if all ships have been sunk *
 
                     return true;
                 }
@@ -77,25 +96,6 @@ const gameBoard = () => {
         return false;
     }
 
-    // check if all ships have been sunk
-    const allShipsSunk = () => {
-        const numberOfShips = Object.keys(playerShips).length;
-        if (boardStatus.shipsSunk === numberOfShips) {
-            return true;
-        }
-
-        return false;
-    }
-
-    // get missed shots
-    const missedShots = () => {
-        return boardStatus.missedShots;
-    }
-
-    // get hits
-    const hits = () => {
-        return boardStatus.hits;
-    }
 
     return { board, placeShip, receiveAttack, missedShots, hits, allShipsSunk };
 }
