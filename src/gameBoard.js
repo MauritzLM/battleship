@@ -1,4 +1,3 @@
-// const ship = require("./ship");
 
 const ship = require("./ship");
 
@@ -8,7 +7,11 @@ const gameBoard = () => {
 
     const playerShips = {};
 
-    const missedShots = [];
+    const boardStatus = {
+        missedShots: [],
+        hits: [],
+        shipsSunk: 0,
+    };
 
     // create grid
     const createBoard = () => {
@@ -23,6 +26,8 @@ const gameBoard = () => {
         }
         return board;
     }
+
+    const board = createBoard();
 
     // placeship method
     const placeShip = (ship, placement) => {
@@ -44,6 +49,8 @@ const gameBoard = () => {
 
     // receive attack method
     const receiveAttack = (coords) => {
+        // check if coords are valid
+        // check board and missed shots
         // search player placements for coords
         for (const ship in playerShips) {
             let placementsArr = playerShips[ship][1];
@@ -52,8 +59,12 @@ const gameBoard = () => {
                 if (coords.toString() === placementsArr[i].toString()) {
                     // add hit to ship
                     playerShips[ship][0].hit();
+                    // add to recorded shots;
+                    boardStatus.hits.push(coords);
                     // check if ship is sunk
-                    playerShips[ship][0].isSunk();
+                    if (playerShips[ship][0].isSunk()) {
+                        boardStatus.shipsSunk++;
+                    };
                     // check if all ships have been sunk 
 
                     return true;
@@ -62,23 +73,31 @@ const gameBoard = () => {
         }
 
         // if (!found) add to missed shots and return false
-        missedShots.push(coords);
+        boardStatus.missedShots.push(coords);
         return false;
     }
 
+    // check if all ships have been sunk
     const allShipsSunk = () => {
-        for (const ship in playerShips) {
-            // get the sunk status of ship
-            let sunk = playerShips[ship][0].isSunk();
-            if (!sunk) {
-                return false;
-            }
-
+        const numberOfShips = Object.keys(playerShips).length;
+        if (boardStatus.shipsSunk === numberOfShips) {
+            return true;
         }
-        return true
+
+        return false;
     }
 
-    return { createBoard, placeShip, receiveAttack, missedShots, allShipsSunk };
+    // get missed shots
+    const missedShots = () => {
+        return boardStatus.missedShots;
+    }
+
+    // get hits
+    const hits = () => {
+        return boardStatus.hits;
+    }
+
+    return { board, placeShip, receiveAttack, missedShots, hits, allShipsSunk };
 }
 
 module.exports = gameBoard;

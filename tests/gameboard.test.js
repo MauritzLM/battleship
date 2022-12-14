@@ -29,13 +29,16 @@ test('test receive attack determines if hit', () => {
     expect(board.receiveAttack(['B', 1])).toBe(true);
 })
 
-// missed attacks
-test('test tracking of missed attacks', () => {
+// recording attacks
+test('test tracking of attacks', () => {
     const board = gameBoard();
     board.placeShip(ship('destroyer', 3), [['A', 1], ['B', 1], ['C', 1]]);
     board.receiveAttack(['B', 1]);
     board.receiveAttack(['B', 2]);
-    expect(board.missedShots).toEqual([['B', 2]]);
+    board.receiveAttack(['D', 5]);
+    board.receiveAttack(['C', 1]);
+    expect(board.missedShots()).toEqual([['B', 2], ['D', 5]]);
+    expect(board.hits()).toEqual([['B', 1], ['C', 1]]);
 })
 
 // have all ships been sunk
