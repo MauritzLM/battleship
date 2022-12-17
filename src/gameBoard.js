@@ -67,7 +67,7 @@ const gameBoard = () => {
 
     // receive attack method
     const receiveAttack = (coords) => {
-        // check if coords are valid
+        // check if coords are valid   ?
         // check board and missed shots
         // search player placements for coords
         for (const ship in playerShips) {
