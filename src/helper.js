@@ -5,4 +5,11 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+// function compareArrays(arr1, arr2) {
+//     if (arr1.toString() === arr2.toString()) {
+//         return true;
+//     }
+//     return false
+// }
+
 module.exports = getRandomIntInclusive;

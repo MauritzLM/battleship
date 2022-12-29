@@ -8,28 +8,40 @@ const renderGameBoard = (gameBoard) => {
     const board = document.createElement("div");
     board.classList.add("player-board");
 
-    // render each column
-
-    //for (let i = 0; i < 10; i++) {
-    // create column
-    // let column = document.createElement("div");
-
     for (let j = 0; j < gameBoard.length; j++) {
         // create block
         let coord = document.createElement("div");
         coord.textContent = `${gameBoard[j].toString()}`;
         board.appendChild(coord);
     }
-    // board.appendChild(column);
-    // }
 
-    // render coord in each column
 
-    // render placement of ships 
+    // render placement of ships * 
+    const renderPlacements = (playerShips, coordsArr) => {
+        // change backgroundColor of coords
+        for (ship in playerShips) {
+            const placementsArr = playerShips[ship][1];
+
+            // console.log(placementsArr);
+            for (let i = 0; i < placementsArr.length; i++) {
+                for (let j = 0; j < coordsArr.length; j++) {
+                    // compare placement[i] with coords[j]
+                    let displayCoords = coordsArr[j].textContent.split(",");
+                    displayCoords.splice(1, 1, Number(displayCoords[1]))
+                    // console.log(displayCoords);
+                    // console.log(placementsArr[i]);
+                    if (placementsArr[i].toString() === displayCoords.toString()) {
+                        coordsArr[j].classList.add("placement");
+                        // break;
+                    }
+                }
+            }
+        }
+    }
 
     // render attacks
 
-    return board;
+    return { board, renderPlacements };
 }
 
 module.exports = renderGameBoard;

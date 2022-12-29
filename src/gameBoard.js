@@ -97,7 +97,7 @@ const gameBoard = () => {
     }
 
 
-    return { board, placeShip, receiveAttack, missedShots, hits, allShipsSunk };
+    return { board, placeShip, playerShips, receiveAttack, missedShots, hits, allShipsSunk };
 }
 
 module.exports = gameBoard;
