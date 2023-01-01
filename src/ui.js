@@ -27,7 +27,7 @@ const renderGameBoard = (gameBoard) => {
                 for (let j = 0; j < coordsArr.length; j++) {
                     // compare placement[i] with coords[j]
                     let displayCoords = coordsArr[j].textContent.split(",");
-                    displayCoords.splice(1, 1, Number(displayCoords[1]))
+                    displayCoords.splice(1, 1, Number(displayCoords[1]));
                     // console.log(displayCoords);
                     // console.log(placementsArr[i]);
                     if (placementsArr[i].toString() === displayCoords.toString()) {

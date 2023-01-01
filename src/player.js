@@ -42,12 +42,15 @@ const player = (name) => {
     }
 
     // enter coordinates to attack on enemy board
-    const makeAttack = (coords, enemyBoard) => {
+    const makeAttack = (coords, enemyBoard, receiveAttack) => {
         // check correct turn
         if (myTurn) {
             // see if coords are valid
             if (isvalidMove(coords, attacksMade, enemyBoard)) {
                 attacksMade.push(coords);
+
+                receiveAttack(coords);
+
                 return `attack made at ${coords}`;
             }
 

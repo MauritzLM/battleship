@@ -8,11 +8,10 @@ const renderGameBoard = require("./ui");
 // 2. steps through game turn by turn using only methods from other objects
 
 // create player 
-// const player1 = player(mo);
+const player1 = player();
 
 // create gameboard
 const player1_gameBoard = gameBoard();
-
 
 // render gameboard
 const mainContent = document.createElement("main");
@@ -32,6 +31,11 @@ player1_gameBoard.placeShip(ship("carrier", 5), [["I", 5], ["I", 6], ["I", 7], [
 const coordsArr = document.querySelectorAll(".player-board div");
 displayBoard.renderPlacements(player1_gameBoard.playerShips, coordsArr);
 
+// create cpu player
+const playerCpu = player();
+
+// change cpu player turn
+playerCpu.changeTurn();
 
 // cpu board
 const cpu_gameBoard = gameBoard();
@@ -49,5 +53,45 @@ cpu_gameBoard.placeShip(ship("carrier", 5), [["J", 6], ["J", 7], ["J", 8], ["J",
 const cpuCoords = document.querySelectorAll(".cpu-board div");
 displayCpuBoard.renderPlacements(cpu_gameBoard.playerShips, cpuCoords);
 
+// manage turn
 
+
+// player with current turn makes attack
+
+
+// add eventlistener if player 1 turn (click attack)
+cpuCoords.forEach(div => {
+    div.addEventListener('click', (e) => {
+        console.log(e.currentTarget.textContent);
+        // run make attack and receive attack
+        // get attack coords
+        let getCoords = e.currentTarget.textContent;
+        let coords = getCoords.split(',');
+        coords.splice(1, 1, Number(coords[1]));
+        // run make attack function
+        console.log(coords);
+        player1.makeAttack(coords, cpu_gameBoard.board, cpu_gameBoard.receiveAttack);
+
+        // remove event from div*
+        console.log(cpu_gameBoard.missedShots());
+        console.log(cpu_gameBoard.hits());
+    })
+})
+
+// player1.makeRandomAttack(cpu_gameBoard.board);
+
+
+// receive attack on enemy board
+
+
+// report miss, hit, shipsunk
+
+
+// update ui
+
+
+// check if gameover
+
+
+// change turn
 
