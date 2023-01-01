@@ -39,3 +39,11 @@ div {
 .placement {
     background-color: aquamarine;
 }
+
+.hit {
+    background-color: rgb(122, 40, 40);
+}
+
+.missed {
+    background-color: black;
+}

@@ -49,19 +49,12 @@ const player = (name) => {
             if (isvalidMove(coords, attacksMade, enemyBoard)) {
                 attacksMade.push(coords);
 
-                receiveAttack(coords);
-
-                return `attack made at ${coords}`;
+                return receiveAttack(coords);
             }
 
             else {
                 return 'invalid coordinates';
             }
-            // call receive attack on other board
-            // enemyBoard.receiveAttack(coords); ?
-
-
-            // change turn and return*
 
         }
 

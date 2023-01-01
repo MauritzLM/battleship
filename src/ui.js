@@ -15,33 +15,45 @@ const renderGameBoard = (gameBoard) => {
         board.appendChild(coord);
     }
 
+    // function to style coords depending on status
+    const styleCoords = (typeArr, coordsArr, style) => {
+        // loop over type array
+        typeArr.forEach(type => {
+            // loop over coordsArr
+            for (let i = 0; i < coordsArr.length; i++) {
+                let displayCoords = coordsArr[i].textContent.split(",");
+                displayCoords.splice(1, 1, Number(displayCoords[1]));
+                // if true add style
+                if (type.toString() === displayCoords.toString()) {
+                    coordsArr[i].className = style;
+                }
+            }
+        });
 
-    // render placement of ships * 
+    }
+
+    // render placement of ships 
     const renderPlacements = (playerShips, coordsArr) => {
         // change backgroundColor of coords
         for (ship in playerShips) {
             const placementsArr = playerShips[ship][1];
 
-            // console.log(placementsArr);
-            for (let i = 0; i < placementsArr.length; i++) {
-                for (let j = 0; j < coordsArr.length; j++) {
-                    // compare placement[i] with coords[j]
-                    let displayCoords = coordsArr[j].textContent.split(",");
-                    displayCoords.splice(1, 1, Number(displayCoords[1]));
-                    // console.log(displayCoords);
-                    // console.log(placementsArr[i]);
-                    if (placementsArr[i].toString() === displayCoords.toString()) {
-                        coordsArr[j].classList.add("placement");
-                        // break;
-                    }
-                }
-            }
+            styleCoords(placementsArr, coordsArr, "placement");
         }
+    }
+
+    // update ui after enemy has made attack
+    const renderShots = (hits, misses, coordsArr) => {
+
+        styleCoords(hits, coordsArr, "hit");
+        styleCoords(misses, coordsArr, "missed");
     }
 
     // render attacks
 
-    return { board, renderPlacements };
+    return { board, renderPlacements, renderShots };
 }
+
+
 
 module.exports = renderGameBoard;

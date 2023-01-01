@@ -62,21 +62,20 @@ displayCpuBoard.renderPlacements(cpu_gameBoard.playerShips, cpuCoords);
 // add eventlistener if player 1 turn (click attack)
 cpuCoords.forEach(div => {
     div.addEventListener('click', (e) => {
-        console.log(e.currentTarget.textContent);
-        // run make attack and receive attack
         // get attack coords
         let getCoords = e.currentTarget.textContent;
         let coords = getCoords.split(',');
         coords.splice(1, 1, Number(coords[1]));
         // run make attack function
-        console.log(coords);
         player1.makeAttack(coords, cpu_gameBoard.board, cpu_gameBoard.receiveAttack);
 
-        // remove event from div*
+        // update ui
+        displayCpuBoard.renderShots(cpu_gameBoard.hits(), cpu_gameBoard.missedShots(), cpuCoords);
+
         console.log(cpu_gameBoard.missedShots());
         console.log(cpu_gameBoard.hits());
-    })
-})
+    });
+});
 
 // player1.makeRandomAttack(cpu_gameBoard.board);
 
