@@ -47,3 +47,15 @@ div {
 .missed {
     background-color: black;
 }
+
+.scoreboard {
+    display: flex;
+    justify-content: space-between;
+    width: 700px;
+    background-color: white;
+}
+
+.scoreboard p {
+    width: 30%;
+    border: 1px solid rgb(58, 184, 54);
+}

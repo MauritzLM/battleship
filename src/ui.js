@@ -54,6 +54,36 @@ const renderGameBoard = (gameBoard) => {
     return { board, renderPlacements, renderShots };
 }
 
+const renderScoreBoard = () => {
+
+    // method to create scoreboard
+    const createScoreBoard = () => {
+        const player1Score = document.createElement("p");
+        const player2Score = document.createElement("p");
+        const scoreDiv = document.createElement("div");
+
+        player1Score.classList.add("player1");
+        player2Score.classList.add("player2");
+        scoreDiv.classList.add("scoreboard");
+
+        scoreDiv.append(player1Score, player2Score);
+
+        return scoreDiv;
+    }
+
+    // method to update score
+    const updateScore = (player, playerShipStatus) => {
+        // how many ships does player have left?*
+
+        // how enemy ships are left?
+        const playerShips = playerShipStatus;
+        // update text content of p
+        player.textContent = `ships left: ${playerShips}`;
+    }
+
+    return { createScoreBoard, updateScore };
+}
 
 
-module.exports = renderGameBoard;
+
+module.exports = { renderGameBoard, renderScoreBoard };

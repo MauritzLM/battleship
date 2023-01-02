@@ -47,6 +47,11 @@ const gameBoard = () => {
         return boardStatus.hits;
     }
 
+    // get ships sunk
+    const shipsLeft = () => {
+        return 5 - boardStatus.shipsSunk;
+    }
+
     // placeship method
     const placeShip = (ship, placement) => {
         // check that ship length == coords length
@@ -97,7 +102,7 @@ const gameBoard = () => {
     }
 
 
-    return { board, placeShip, playerShips, receiveAttack, missedShots, hits, allShipsSunk };
+    return { board, placeShip, playerShips, receiveAttack, missedShots, hits, allShipsSunk, shipsLeft };
 }
 
 module.exports = gameBoard;
